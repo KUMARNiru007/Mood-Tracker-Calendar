@@ -200,3 +200,60 @@ body {
     color: white;
 }
 
+/* ...existing code... */
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+    .calendar-container {
+      width: 100%;
+      padding: 10px;
+    }
+  
+    .calendar {
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+  
+    .day {
+      height: 40px;
+      font-size: 14px;
+    }
+  
+    .mood-selector {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .mood-btn {
+      width: 100%;
+      margin: 5px 0;
+      padding: 8px;
+    }
+  
+    .header {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .month-nav {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+  
+  /* For extra small devices */
+  @media screen and (max-width: 480px) {
+    .day {
+      height: 35px;
+      font-size: 12px;
+    }
+  
+    .month-year {
+      font-size: 18px;
+    }
+  
+    .mood-btn {
+      padding: 6px;
+      font-size: 14px;
+    }
+  }

@@ -1,7 +1,3 @@
-let date = new Date();
-let year = date.getFullYear();
-let month = date.getMonth();
-
 const calendarNav = document.querySelector(".calendar-navigation");
 const calendarDiv = document.getElementById("calendar");
 const moodButtons = document.querySelectorAll(".mood-btn");
@@ -13,6 +9,11 @@ const nextBtn = document.getElementById("next-cal");
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", 
                 "August", "September", "October", "November", "December"];
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+let date = new Date();
+let year = date.getFullYear();
+let month = date.getMonth();
+
 
 
 let selectedMood = null;
