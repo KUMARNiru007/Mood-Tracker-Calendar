@@ -35,7 +35,7 @@ Try the application here: [Mood Tracker Calendar](https://mood-tracker-calendar
 
 1.  Clone the repository
 
-   git clone https://github.com/yourusername/mood-calendar.git
+      git clone https://github.com/KUMARNiru007/Mood-Tracker-Calendar
 
 2. Start tracking your mood.
 
