@@ -84,16 +84,14 @@ body {
     padding: 0.5rem;
 }
 
-#prev-cal img,
-#next-cal img {
+#prev-cal img,#next-cal img {
     width: 24px;
     height: 24px;
     opacity: 0.6;
     transition: opacity 0.2s;
 }
 
-#prev-cal:hover img,
-#next-cal:hover img {
+#prev-cal:hover img,#next-cal:hover img {
     opacity: 1;
 }
 
@@ -103,8 +101,6 @@ body {
     padding: 1rem;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-/* Add these styles to your existing CSS */
 
 .calendar-header {
     text-align: center;
@@ -176,8 +172,6 @@ body {
     border-radius: 50%;
 }
 
-/* ...existing styles... */
-
 .view-toggle {
     display: flex;
     justify-content: center;
@@ -199,8 +193,6 @@ body {
     background-color: #e2a54a;
     color: white;
 }
-
-/* ...existing code... */
 
 /* Mobile Responsive Styles */
 @media screen and (max-width: 768px) {
