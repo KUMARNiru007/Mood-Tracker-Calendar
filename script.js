@@ -13,9 +13,6 @@ const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 let date = new Date();
 let year = date.getFullYear();
 let month = date.getMonth();
-
-
-
 let selectedMood = null;
 let currentView = 'month';
 
@@ -42,27 +39,48 @@ viewButtons.forEach(btn => {
         viewButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentView = btn.dataset.view;
+        if (currentView === 'month') {
+            date = new Date(year, month);
+        }
         showTimelineView(currentView);
     });
 });
 
+
+
 // Calendar navigation
 prevBtn.addEventListener('click', () => {
-    month--;
-    if (month < 0) {
-        month = 11;
-        year--;
+    if (currentView === 'month') {
+        month--;
+        if (month < 0) {
+            month = 11;
+            year--;
+        }
+        renderCalendar();
+    } else if (currentView === 'week') {
+        date.setDate(date.getDate() - 7);
+        showTimelineView('week');
+    } else if (currentView === 'day') {
+        date.setDate(date.getDate() - 1);
+        showTimelineView('day');
     }
-    renderCalendar();
 });
 
 nextBtn.addEventListener('click', () => {
-    month++;
-    if (month > 11) {
-        month = 0;
-        year++;
+    if (currentView === 'month') {
+        month++;
+        if (month > 11) {
+            month = 0;
+            year++;
+        }
+        renderCalendar();
+    } else if (currentView === 'week') {
+        date.setDate(date.getDate() + 7);
+        showTimelineView('week');
+    } else if (currentView === 'day') {
+        date.setDate(date.getDate() + 1);
+        showTimelineView('day');
     }
-    renderCalendar();
 });
 
 function renderCalendar() {
@@ -102,26 +120,10 @@ function renderCalendar() {
     calendarDiv.innerHTML = calendarHTML;
 
 
-    document.addEventListener('DOMContentLoaded', () => {
-        // Find and activate the month view button
-        document.querySelectorAll('.view-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-    
-        // Find and activate the month view button
-        const monthButton = document.querySelector('.view-btn[data-view="month"]');
-        if (monthButton) {
-            monthButton.classList.add('active');
-            renderCalendar(); // Render the calendar in month view
-        }
-        // Clear any previously selected moods
-        moodButtons.forEach(btn => btn.classList.remove('selected'));
-        selectedMood = null;
-    });
-
     // Add click handlers to days
     document.querySelectorAll('.day').forEach(dayElement => {
-        dayElement.addEventListener('click', () => {const dateStr = dayElement.dataset.date;
+        dayElement.addEventListener('click', () => { 
+            const dateStr = dayElement.dataset.date;
             const moodData = getMoodData();
             const existingMood = moodData[dateStr];
             const moodSpan = dayElement.querySelector('.mood');
@@ -164,30 +166,43 @@ renderCalendar();
 function showTimelineView(view) {
     const moodData = getMoodData();
     let content = '';
-    const today = new Date();
 
     switch(view) {
         case 'day':
-            const todayStr = formatDate(today);
+            const dayStr = formatDate(date);
+
             content = `
-                <h3>Today's Mood</h3>
-                <div class="timeline-day">
-                    ${moodData[todayStr] ? moodData[todayStr] : 'No mood recorded'}
+                <h3>Daily Mood</h3>
+                <div class="calendar-header">
+                    <h3>${MONTHS[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}</h3>
                 </div>
-            `;
+                <br> 
+                <div class="timeline-day">
+                    ${moodData[dayStr] ? moodData[dayStr] : 'No mood recorded'}
+                </div>
+                <br>`;
             break;
 
         case 'week':
-            const weekStart = new Date(today);
-            weekStart.setDate(today.getDate() - today.getDay());
-            content = `<h3>This Week's Moods</h3><div class="timeline-week">`;
+            const weekStart = new Date(date);
+            weekStart.setDate(date.getDate() - date.getDay());
+            const weekEnd = new Date(weekStart);
+            weekEnd.setDate(weekStart.getDate() + 6);
+
+            content = `<h3>Weekly Moods</h3>
+                    <div class="calendar-header">
+                        <h3>${MONTHS[weekStart.getMonth()]} ${weekStart.getDate()} - 
+                        ${MONTHS[weekEnd.getMonth()]} ${weekEnd.getDate()}, ${weekEnd.getFullYear()}</h3>
+                    </div>
+                    <div class="timeline-week">`;
             
             for(let i = 0; i < 7; i++) {
-                const date = new Date(weekStart);
-                date.setDate(weekStart.getDate() + i);
-                const dateStr = formatDate(date);
+                const currentDate = new Date(weekStart);
+                currentDate.setDate(weekStart.getDate() + i);
+                const dateStr = formatDate(currentDate);
                 content += `
                     <div class="timeline-day">
+                    <br>
                         <div>${WEEKDAYS[i]}</div>
                         <div>${moodData[dateStr] || '-'}</div>
                     </div>
