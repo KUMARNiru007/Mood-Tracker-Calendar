@@ -42,5 +42,5 @@ Try the application here: [Mood Tracker Calendar](https://mood-tracker-calendar
 
 ## License
 
-This project is open source and available under the MIT License.
+This project is open source and available under the [MIT LICENSE](/LICENSE).
 
